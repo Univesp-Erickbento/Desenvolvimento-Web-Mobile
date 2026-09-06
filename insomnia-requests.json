@@ -1,0 +1,153 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-09-06T18:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v9.0.0",
+  "resources": [
+    {
+      "_id": "wrk_catalogo",
+      "parentId": null,
+      "modified": 1694010000000,
+      "created": 1694010000000,
+      "name": "Catálogo de Produtos",
+      "description": "",
+      "scope": "workspace",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_catalogo",
+      "parentId": "wrk_catalogo",
+      "modified": 1694010000000,
+      "created": 1694010000000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:3333"
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url"]
+      },
+      "_type": "environment"
+    },
+    {
+      "_id": "req_status",
+      "parentId": "fld_endpoints",
+      "modified": 1694010000000,
+      "created": 1694010000000,
+      "url": "{{ base_url }}/",
+      "name": "GET / - Status da API",
+      "description": "Retorna o status da API",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1694010000000,
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_products",
+      "parentId": "fld_endpoints",
+      "modified": 1694010000001,
+      "created": 1694010000001,
+      "url": "{{ base_url }}/products",
+      "name": "GET /products - Listar Todos",
+      "description": "Retorna todos os produtos do banco",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1694010000001,
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_product",
+      "parentId": "fld_endpoints",
+      "modified": 1694010000002,
+      "created": 1694010000002,
+      "url": "{{ base_url }}/products/1",
+      "name": "GET /products/:id - Buscar Um",
+      "description": "Retorna um produto específico pelo ID",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1694010000002,
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_product",
+      "parentId": "fld_endpoints",
+      "modified": 1694010000003,
+      "created": 1694010000003,
+      "url": "{{ base_url }}/products",
+      "name": "POST /products - Criar",
+      "description": "Cria um novo produto",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Headset Logitech G Pro X\",\n  \"description\": \"Headset gamer wireless com som surround 7.1\",\n  \"price\": 699.90\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1694010000003,
+      "_type": "request"
+    },
+    {
+      "_id": "req_update_product",
+      "parentId": "fld_endpoints",
+      "modified": 1694010000004,
+      "created": 1694010000004,
+      "url": "{{ base_url }}/products/1",
+      "name": "PUT /products/:id - Atualizar",
+      "description": "Atualiza um produto existente",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Notebook Dell Inspiron 15 - Atualizado\",\n  \"description\": \"Notebook Dell com processador Intel Core i5, 8 GB de RAM e SSD de 512 GB - Versão 2026\",\n  \"price\": 3599.90\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1694010000004,
+      "_type": "request"
+    },
+    {
+      "_id": "req_delete_product",
+      "parentId": "fld_endpoints",
+      "modified": 1694010000005,
+      "created": 1694010000005,
+      "url": "{{ base_url }}/products/1",
+      "name": "DELETE /products/:id - Deletar",
+      "description": "Deleta um produto pelo ID",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1694010000005,
+      "_type": "request"
+    },
+    {
+      "_id": "fld_endpoints",
+      "parentId": "wrk_catalogo",
+      "modified": 1694010000000,
+      "created": 1694010000000,
+      "name": "Endpoints",
+      "description": "",
+      "_type": "request_group"
+    }
+  ]
+}

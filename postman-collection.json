@@ -1,0 +1,121 @@
+{
+  "info": {
+    "_postman_id": "catalogo-produtos-api",
+    "name": "Catálogo de Produtos API",
+    "description": "Coleção de requisições para a API de Catálogo de Produtos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Status da API",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": [""]
+        },
+        "description": "Retorna o status da API"
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Todos os Produtos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/products",
+          "host": ["{{base_url}}"],
+          "path": ["products"]
+        },
+        "description": "Retorna todos os produtos do banco de dados"
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar Produto por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/products/1",
+          "host": ["{{base_url}}"],
+          "path": ["products", "1"]
+        },
+        "description": "Retorna um produto específico pelo ID. Altere o número (1) para outro ID conforme necessário."
+      },
+      "response": []
+    },
+    {
+      "name": "Criar Novo Produto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Headset Logitech G Pro X\",\n  \"description\": \"Headset gamer wireless com som surround 7.1\",\n  \"price\": 699.90\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/products",
+          "host": ["{{base_url}}"],
+          "path": ["products"]
+        },
+        "description": "Cria um novo produto no banco de dados"
+      },
+      "response": []
+    },
+    {
+      "name": "Atualizar Produto",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Notebook Dell Inspiron 15 - Atualizado\",\n  \"description\": \"Notebook Dell com processador Intel Core i5, 8 GB de RAM e SSD de 512 GB - Versão 2026\",\n  \"price\": 3599.90\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/products/1",
+          "host": ["{{base_url}}"],
+          "path": ["products", "1"]
+        },
+        "description": "Atualiza um produto existente"
+      },
+      "response": []
+    },
+    {
+      "name": "Deletar Produto",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/products/1",
+          "host": ["{{base_url}}"],
+          "path": ["products", "1"]
+        },
+        "description": "Deleta um produto pelo ID"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3333",
+      "type": "string"
+    }
+  ]
+}
