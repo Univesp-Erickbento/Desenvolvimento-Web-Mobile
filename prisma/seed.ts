@@ -1,55 +1,26 @@
-import "dotenv/config";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL,
-});
-
-const prisma = new PrismaClient({ adapter });
+const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.product.deleteMany();
+
   await prisma.product.createMany({
     data: [
-      {
-        title: "Notebook Dell Inspiron 15",
-        description:
-          "Notebook Dell com processador Intel Core i5, 8 GB de RAM e SSD de 512 GB.",
-        price: 3499.90,
-      },
-      {
-        title: "Mouse Logitech MX Master 3S",
-        description:
-          "Mouse sem fio ergonômico Logitech com sensor de alta precisão e conexão Bluetooth.",
-        price: 599.90,
-      },
-      {
-        title: "Teclado Mecânico Logitech G Pro",
-        description:
-          "Teclado mecânico compacto para uso profissional e jogos.",
-        price: 499.90,
-      },
-      {
-        title: "Monitor LG UltraGear 24",
-        description:
-          "Monitor LG de 24 polegadas com resolução Full HD e alta taxa de atualização.",
-        price: 899.90,
-      },
-      {
-        title: "SSD Kingston NV2 1TB",
-        description:
-          "SSD NVMe Kingston de 1 TB para armazenamento e melhoria de desempenho do computador.",
-        price: 549.90,
-      },
+      { title: 'Mouse Gamer RGB', description: 'Mouse óptico de alta precisão com 12000 DPI.', price: 150.0, imageUrl: 'https://placehold.co/600x400' },
+      { title: 'Teclado Mecânico', description: 'Teclado mecânico switch blue ABNT2 com iluminação.', price: 280.0, imageUrl: 'https://placehold.co/600x400' },
+      { title: 'Monitor 24 Polegadas', description: 'Monitor IPS Full HD com taxa de atualização de 144Hz.', price: 899.9, imageUrl: 'https://placehold.co/600x400' },
+      { title: 'Headset Wireless', description: 'Headset sem fio com som surround 7.1 e isolamento acústico.', price: 420.0, imageUrl: 'https://placehold.co/600x400' },
+      { title: 'Webcam Full HD 1080p', description: 'Webcam para streaming com microfone embutido e foco automático.', price: 210.0, imageUrl: 'https://placehold.co/600x400' },
     ],
   });
 
-  console.log("Produtos inseridos com sucesso!");
+  console.log('Seed concluído com 5 produtos inseridos.');
 }
 
 main()
-  .catch((error) => {
-    console.error(error);
+  .catch((e) => {
+    console.error(e);
     process.exit(1);
   })
   .finally(async () => {

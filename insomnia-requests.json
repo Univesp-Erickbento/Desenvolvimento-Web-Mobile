@@ -1,7 +1,7 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2026-09-06T18:00:00.000Z",
+  "__export_date": "2026-09-18T00:00:00.000Z",
   "__export_source": "insomnia.desktop.app:v9.0.0",
   "resources": [
     {
@@ -9,8 +9,8 @@
       "parentId": null,
       "modified": 1694010000000,
       "created": 1694010000000,
-      "name": "Catálogo de Produtos",
-      "description": "",
+      "name": "Catálogo de Produtos API",
+      "description": "Workspace de testes para CRUD com Express, Prisma e Zod",
       "scope": "workspace",
       "_type": "workspace"
     },
@@ -21,7 +21,7 @@
       "created": 1694010000000,
       "name": "Base Environment",
       "data": {
-        "base_url": "http://localhost:3333"
+        "base_url": "http://localhost:3001"
       },
       "dataPropertyOrder": {
         "&": ["base_url"]
@@ -29,29 +29,22 @@
       "_type": "environment"
     },
     {
-      "_id": "req_status",
-      "parentId": "fld_endpoints",
+      "_id": "fld_endpoints",
+      "parentId": "wrk_catalogo",
       "modified": 1694010000000,
       "created": 1694010000000,
-      "url": "{{ base_url }}/",
-      "name": "GET / - Status da API",
-      "description": "Retorna o status da API",
-      "method": "GET",
-      "body": {},
-      "parameters": [],
-      "headers": [],
-      "authentication": {},
-      "metaSortKey": -1694010000000,
-      "_type": "request"
+      "name": "Endpoints API",
+      "description": "",
+      "_type": "request_group"
     },
     {
       "_id": "req_list_products",
       "parentId": "fld_endpoints",
       "modified": 1694010000001,
       "created": 1694010000001,
-      "url": "{{ base_url }}/products",
-      "name": "GET /products - Listar Todos",
-      "description": "Retorna todos os produtos do banco",
+      "url": "{{ base_url }}/api/products",
+      "name": "GET /api/products - Listar Todos (200 OK)",
+      "description": "Retorna todos os produtos cadastrados no banco",
       "method": "GET",
       "body": {},
       "parameters": [],
@@ -61,13 +54,13 @@
       "_type": "request"
     },
     {
-      "_id": "req_get_product",
+      "_id": "req_get_product_by_id",
       "parentId": "fld_endpoints",
       "modified": 1694010000002,
       "created": 1694010000002,
-      "url": "{{ base_url }}/products/1",
-      "name": "GET /products/:id - Buscar Um",
-      "description": "Retorna um produto específico pelo ID",
+      "url": "{{ base_url }}/api/products/COLOQUE_UM_UUID_VALIDO_AQUI",
+      "name": "GET /api/products/:id - Buscar por ID Válido (200 OK)",
+      "description": "Retorna um produto específico através de seu UUID",
       "method": "GET",
       "body": {},
       "parameters": [],
@@ -77,41 +70,49 @@
       "_type": "request"
     },
     {
-      "_id": "req_create_product",
+      "_id": "req_get_product_not_found",
       "parentId": "fld_endpoints",
       "modified": 1694010000003,
       "created": 1694010000003,
-      "url": "{{ base_url }}/products",
-      "name": "POST /products - Criar",
-      "description": "Cria um novo produto",
-      "method": "POST",
-      "body": {
-        "mimeType": "application/json",
-        "text": "{\n  \"title\": \"Headset Logitech G Pro X\",\n  \"description\": \"Headset gamer wireless com som surround 7.1\",\n  \"price\": 699.90\n}"
-      },
+      "url": "{{ base_url }}/api/products/00000000-0000-0000-0000-000000000000",
+      "name": "GET /api/products/:id - ID Inexistente (404 Not Found)",
+      "description": "Cenário de erro para produto não localizado",
+      "method": "GET",
+      "body": {},
       "parameters": [],
-      "headers": [
-        {
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
+      "headers": [],
       "authentication": {},
       "metaSortKey": -1694010000003,
       "_type": "request"
     },
     {
-      "_id": "req_update_product",
+      "_id": "req_get_product_invalid_id",
       "parentId": "fld_endpoints",
       "modified": 1694010000004,
       "created": 1694010000004,
-      "url": "{{ base_url }}/products/1",
-      "name": "PUT /products/:id - Atualizar",
-      "description": "Atualiza um produto existente",
-      "method": "PUT",
+      "url": "{{ base_url }}/api/products/id-invalido-123",
+      "name": "GET /api/products/:id - ID Inválido (400 Bad Request)",
+      "description": "Cenário de erro capturado pela validação do Zod",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1694010000004,
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_product_success",
+      "parentId": "fld_endpoints",
+      "modified": 1694010000005,
+      "created": 1694010000005,
+      "url": "{{ base_url }}/api/products",
+      "name": "POST /api/products - Criar Produto (201 Created)",
+      "description": "Cria um produto válido com todas as regras do Zod preenchidas",
+      "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"title\": \"Notebook Dell Inspiron 15 - Atualizado\",\n  \"description\": \"Notebook Dell com processador Intel Core i5, 8 GB de RAM e SSD de 512 GB - Versão 2026\",\n  \"price\": 3599.90\n}"
+        "text": "{\n  \"title\": \"Headset Logitech G Pro X\",\n  \"description\": \"Headset gamer wireless com som surround 7.1\",\n  \"price\": 699.90,\n  \"imageUrl\": \"https://placehold.co/600x400\"\n}"
       },
       "parameters": [],
       "headers": [
@@ -121,33 +122,112 @@
         }
       ],
       "authentication": {},
-      "metaSortKey": -1694010000004,
+      "metaSortKey": -1694010000005,
       "_type": "request"
     },
     {
-      "_id": "req_delete_product",
+      "_id": "req_create_product_invalid",
       "parentId": "fld_endpoints",
-      "modified": 1694010000005,
-      "created": 1694010000005,
-      "url": "{{ base_url }}/products/1",
-      "name": "DELETE /products/:id - Deletar",
-      "description": "Deleta um produto pelo ID",
+      "modified": 1694010000006,
+      "created": 1694010000006,
+      "url": "{{ base_url }}/api/products",
+      "name": "POST /api/products - Dados Inválidos (400 Bad Request)",
+      "description": "Cenário de erro com campos vazios/curtos e preço negativo",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"A\",\n  \"description\": \"Curto\",\n  \"price\": -50.00,\n  \"imageUrl\": \"\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1694010000006,
+      "_type": "request"
+    },
+    {
+      "_id": "req_update_product_success",
+      "parentId": "fld_endpoints",
+      "modified": 1694010000007,
+      "created": 1694010000007,
+      "url": "{{ base_url }}/api/products/COLOQUE_UM_UUID_VALIDO_AQUI",
+      "name": "PUT /api/products/:id - Atualização Parcial (200 OK)",
+      "description": "Atualiza campos específicos usando .partial() do Zod",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Notebook Dell Inspiron 15 - Versão 2026\",\n  \"price\": 3599.90\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1694010000007,
+      "_type": "request"
+    },
+    {
+      "_id": "req_update_product_negative_price",
+      "parentId": "fld_endpoints",
+      "modified": 1694010000008,
+      "created": 1694010000008,
+      "url": "{{ base_url }}/api/products/COLOQUE_UM_UUID_VALIDO_AQUI",
+      "name": "PUT /api/products/:id - Preço Negativo (400 Bad Request)",
+      "description": "Cenário de erro de validação ao tentar atualizar preço negativo",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"price\": -100.00\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1694010000008,
+      "_type": "request"
+    },
+    {
+      "_id": "req_delete_product_success",
+      "parentId": "fld_endpoints",
+      "modified": 1694010000009,
+      "created": 1694010000009,
+      "url": "{{ base_url }}/api/products/COLOQUE_UM_UUID_VALIDO_AQUI",
+      "name": "DELETE /api/products/:id - Deletar Produto (204 No Content)",
+      "description": "Remove um produto válido do banco",
       "method": "DELETE",
       "body": {},
       "parameters": [],
       "headers": [],
       "authentication": {},
-      "metaSortKey": -1694010000005,
+      "metaSortKey": -1694010000009,
       "_type": "request"
     },
     {
-      "_id": "fld_endpoints",
-      "parentId": "wrk_catalogo",
-      "modified": 1694010000000,
-      "created": 1694010000000,
-      "name": "Endpoints",
-      "description": "",
-      "_type": "request_group"
+      "_id": "req_delete_product_not_found",
+      "parentId": "fld_endpoints",
+      "modified": 1694010000010,
+      "created": 1694010000010,
+      "url": "{{ base_url }}/api/products/00000000-0000-0000-0000-000000000000",
+      "name": "DELETE /api/products/:id - ID Inexistente (404 Not Found)",
+      "description": "Cenário de erro ao tentar deletar registro que não existe (Erro P2025)",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1694010000010,
+      "_type": "request"
     }
   ]
 }

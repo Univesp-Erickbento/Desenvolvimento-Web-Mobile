@@ -7,30 +7,16 @@
   },
   "item": [
     {
-      "name": "Status da API",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{base_url}}/",
-          "host": ["{{base_url}}"],
-          "path": [""]
-        },
-        "description": "Retorna o status da API"
-      },
-      "response": []
-    },
-    {
       "name": "Listar Todos os Produtos",
       "request": {
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{base_url}}/products",
+          "raw": "{{base_url}}/api/products",
           "host": ["{{base_url}}"],
-          "path": ["products"]
+          "path": ["api", "products"]
         },
-        "description": "Retorna todos os produtos do banco de dados"
+        "description": "Retorna todos os produtos do banco de dados (200 OK)"
       },
       "response": []
     },
@@ -40,11 +26,31 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{base_url}}/products/1",
+          "raw": "{{base_url}}/api/products/:id",
           "host": ["{{base_url}}"],
-          "path": ["products", "1"]
+          "path": ["api", "products", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "COLOQUE_UM_UUID_VALIDO_AQUI"
+            }
+          ]
         },
-        "description": "Retorna um produto específico pelo ID. Altere o número (1) para outro ID conforme necessário."
+        "description": "Retorna um produto específico pelo UUID"
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar Produto por ID Inexistente",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/products/00000000-0000-0000-0000-000000000000",
+          "host": ["{{base_url}}"],
+          "path": ["api", "products", "00000000-0000-0000-0000-000000000000"]
+        },
+        "description": "Testa o cenário de produto não encontrado (404 Not Found)"
       },
       "response": []
     },
@@ -61,19 +67,43 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"Headset Logitech G Pro X\",\n  \"description\": \"Headset gamer wireless com som surround 7.1\",\n  \"price\": 699.90\n}"
+          "raw": "{\n  \"title\": \"Headset Logitech G Pro X\",\n  \"description\": \"Headset gamer wireless com som surround 7.1\",\n  \"price\": 699.90,\n  \"imageUrl\": \"https://placehold.co/600x400\"\n}"
         },
         "url": {
-          "raw": "{{base_url}}/products",
+          "raw": "{{base_url}}/api/products",
           "host": ["{{base_url}}"],
-          "path": ["products"]
+          "path": ["api", "products"]
         },
-        "description": "Cria um novo produto no banco de dados"
+        "description": "Cria um novo produto validado pelo Zod (201 Created)"
       },
       "response": []
     },
     {
-      "name": "Atualizar Produto",
+      "name": "Criar Produto - Erro de Validação Zod",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"A\",\n  \"description\": \"Curto\",\n  \"price\": -50.00,\n  \"imageUrl\": \"\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/products",
+          "host": ["{{base_url}}"],
+          "path": ["api", "products"]
+        },
+        "description": "Testa a resposta de erro 400 Bad Request enviando dados inválidos"
+      },
+      "response": []
+    },
+    {
+      "name": "Atualizar Produto (Parcial)",
       "request": {
         "method": "PUT",
         "header": [
@@ -85,14 +115,20 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"title\": \"Notebook Dell Inspiron 15 - Atualizado\",\n  \"description\": \"Notebook Dell com processador Intel Core i5, 8 GB de RAM e SSD de 512 GB - Versão 2026\",\n  \"price\": 3599.90\n}"
+          "raw": "{\n  \"title\": \"Notebook Dell Inspiron 15 - Atualizado\",\n  \"price\": 3599.90\n}"
         },
         "url": {
-          "raw": "{{base_url}}/products/1",
+          "raw": "{{base_url}}/api/products/:id",
           "host": ["{{base_url}}"],
-          "path": ["products", "1"]
+          "path": ["api", "products", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "COLOQUE_UM_UUID_VALIDO_AQUI"
+            }
+          ]
         },
-        "description": "Atualiza um produto existente"
+        "description": "Atualiza campos de um produto usando o schema parcial (200 OK)"
       },
       "response": []
     },
@@ -102,11 +138,17 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "{{base_url}}/products/1",
+          "raw": "{{base_url}}/api/products/:id",
           "host": ["{{base_url}}"],
-          "path": ["products", "1"]
+          "path": ["api", "products", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "COLOQUE_UM_UUID_VALIDO_AQUI"
+            }
+          ]
         },
-        "description": "Deleta um produto pelo ID"
+        "description": "Deleta um produto existente pelo UUID (204 No Content)"
       },
       "response": []
     }
@@ -114,7 +156,7 @@
   "variable": [
     {
       "key": "base_url",
-      "value": "http://localhost:3333",
+      "value": "http://localhost:3001",
       "type": "string"
     }
   ]

@@ -1,31 +1,31 @@
 {
   "name": "catalogo-produtos",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "API RESTful com Express, Prisma e Zod",
+  "main": "dist/server.js",
   "scripts": {
-  "dev": "tsx watch src/server.ts",
-  "seed": "tsx prisma/seed.ts",
-  "prisma:migrate": "prisma migrate dev",
-  "prisma:studio": "prisma studio"
-},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "dependencies": {
-    "@prisma/adapter-pg": "^7.10.0",
-    "@prisma/client": "^7.10.0",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "pg": "^8.23.0"
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio",
+    "seed": "tsx prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
-    "@types/node": "^26.4.1",
-    "@types/pg": "^8.23.1",
-    "prisma": "^7.10.0",
+    "@types/node": "^26.6.1",
+    "prisma": "5.22.0",
     "tsx": "^4.23.13",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@prisma/client": "5.22.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "zod": "^4.6.5"
   }
 }
